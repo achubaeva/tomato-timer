@@ -6,52 +6,77 @@ elem_button.innerHTML = "Start";
 var minute = 0;
 var second = 0;
 
-function leftPad(number, targetLength) {
+function leftPad(number, targetLength) 
+{
     var output = number + '';
-    while (output.length < targetLength) {
+    while (output.length < targetLength) 
+    {
         output = '0' + output;
     }
     return output;
 }
 
-function timer(minutes) {
+
+function timer(minutes) 
+{
     s = leftPad(second, 2);
     m = leftPad(minute, 2);
     elem.innerHTML = m + ":" + s;
-    
-    if (minutes == 25)
+
+    if (elem_mode.innerHTML == "Mode: OFFFF")
     {
-        elem_mode.innerHTML = "Mode: Study";
+        clearInterval(inst); 
     }
+    else
+    {
     
-    second++;
+        if (minutes == 25)
+        {
+            elem_mode.innerHTML = "Mode: Study";
+        }
     
-    if (second >= 60) {
-        second = 0;
-        minute ++;   
+        second++;
+    
+        if (second >= 60) 
+        {
+            second = 0;
+            minute ++;   
+        }
+
+        if (minute >= minutes)
+        {
+            clearInterval(inst); // uncomment this if you want to stop refreshing after one cycle
+        }
     }
 
-    if (minute >= minutes){
-        clearInterval(inst); // uncomment this if you want to stop refreshing after one cycle
-    }
-}
-
-
-function click_timer() {
-    if (elem_button.innerHTML == "Start"){
-        elem_button.innerHTML = "Stop";
-        // Organize into for loop; change modes to reflect study vs break and round
-        setInterval("timer(25)", 1000);
-        setInterval("timer(5)", 1000);
-        setInterval("timer(25)", 1000);
-        setInterval("timer(5)", 1000);
-        setInterval("timer(25)", 1000);
-        setInterval("timer(5)", 1000);
-        setInterval("timer(25)", 1000);
-        setInterval("timer(5)", 1000);
-
-        // add control for stop to break function
-    }
     
 }
+
+function startTimer() {
+    timer_funct = setInterval("timer(25)", 1000);
+  }
+
+
+function stopTimer() {
+    clearInterval(timer_funct);
+  }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var checkbox = document.querySelector('input[type="checkbox"]');
+      
+        checkbox.addEventListener('change', function () {
+          if (checkbox.checked) {
+            // do this
+            elem_mode.innerHTML = "Mode: ONNNNNN";
+            
+            startTimer();
+          } else {
+            // do that
+            elem_mode.innerHTML = "Mode: OFFFF";
+            stopTimer();
+          }
+        });
+      });
+
+// Add clear button
 
