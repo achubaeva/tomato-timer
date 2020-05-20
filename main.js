@@ -1,10 +1,10 @@
 var elem = document.getElementById("changeTimer");
 var elem_mode = document.getElementById("mode");
-var elem_button = document.getElementById("button1");
-elem_button.innerHTML = "Start";
-
-var minute = 0;
-var second = 0;
+var elem_button = document.getElementById("reset_button");
+elem_button.innerHTML = "RESET";
+var reset = true;
+second = 0;
+minute = 0;
 
 function leftPad(number, targetLength) 
 {
@@ -17,45 +17,63 @@ function leftPad(number, targetLength)
 }
 
 
+
+// document.getElementById("reset_button").addEventListener("resetClick", function(){
+//     //stopTimer();
+//     elem_mode.innerHTML == "Mode: RESET";
+
+//   });
+
+
+elem_mode.innerHTML == "Mode: ON"
+
 function timer(minutes) 
 {
+    
     s = leftPad(second, 2);
     m = leftPad(minute, 2);
     elem.innerHTML = m + ":" + s;
 
-    if (elem_mode.innerHTML == "Mode: OFFFF")
+    if (elem_mode.innerHTML == "Mode: OFF")
     {
         clearInterval(inst); 
     }
-    else
-    {
-    
-        if (minutes == 25)
-        {
-            elem_mode.innerHTML = "Mode: Study";
-        }
-    
-        second++;
-    
-        if (second >= 60) 
-        {
-            second = 0;
-            minute ++;   
-        }
 
-        if (minute >= minutes)
-        {
-            clearInterval(inst); // uncomment this if you want to stop refreshing after one cycle
-        }
+    if (minute == 25)
+    {
+        elem_mode.innerHTML = "Mode: OFF";
+    }
+    
+    second++;
+    
+    if (second >= 60) 
+    {
+        second = 0;
+        minute ++;   
     }
 
-    
+    if (minute >= minutes)
+    {
+        clearInterval(inst); // uncomment this if you want to stop refreshing after one cycle
+    }
+
+
+
+}
+
+function resetClick()
+{
+    elem_button.innerHTML = "Mode: RESET";
+    second = 0;
+    minute = 0;
+    s = leftPad(second, 2);
+    m = leftPad(minute, 2);
+    elem.innerHTML = m + ":" + s;
 }
 
 function startTimer() {
     timer_funct = setInterval("timer(25)", 1000);
   }
-
 
 function stopTimer() {
     clearInterval(timer_funct);
@@ -67,16 +85,27 @@ function stopTimer() {
         checkbox.addEventListener('change', function () {
           if (checkbox.checked) {
             // do this
-            elem_mode.innerHTML = "Mode: ONNNNNN";
+            elem_mode.innerHTML = "Mode: Study";
             
             startTimer();
           } else {
             // do that
-            elem_mode.innerHTML = "Mode: OFFFF";
+            elem_mode.innerHTML = "Mode: OFF";
             stopTimer();
           }
         });
       });
 
 // Add clear button
+
+
+// function reset() {
+//     stopTimer();
+//     elem_mode.innerHTML == "Mode: OFF";
+//     elem.innerHTML = "00:00"
+//     reset = true;
+
+// }
+
+
 

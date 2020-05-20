@@ -1,7 +1,14 @@
 body {
     background-color: mistyrose;
     text-align: center;
-    font: arial;
+    font: LCD;
+
+  }
+
+  .timer {
+    font-size: 90px;
+    font-weight: bold;
+    font-stretch: extra-expanded;
   }
 
   /* The switch - the box around the slider */

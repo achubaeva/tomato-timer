@@ -15,7 +15,6 @@
     <body>
         
 
-            <h1>My Tomato Timer</h1>
             
                 <div>
                     <img src="tomato.png" alt="Tomato" width="200" height="200">
@@ -24,19 +23,15 @@
 
                 <div> 
                         
-                    <p id="changeTimer">
-                        
+                    <p id="changeTimer" class = "timer">
                     00:00
-
                     </p>
 
                     <p id="mode">
-                        Mode: Off
+                        Mode: OFF
                     </p>
 
-                    <p>
-                        <button type="button" id="button1" onclick="click_timer()" >Start</button>
-                    </p>
+                    
 
                     <p>
                         <!-- Rounded switch -->
@@ -44,6 +39,10 @@
                         <input type="checkbox" id = myCheckBox>
                         <span class="slider round"></span>
                         </label>
+                    </p>
+
+                    <p>
+                        <button type="button" id="reset_button" onclick="resetClick()" >RESET</button>
                     </p>
 
 
