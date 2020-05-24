@@ -1,10 +1,13 @@
 var elem = document.getElementById("changeTimer");
-var elem_mode = document.getElementById("mode");
+Mode = document.getElementById("mode")
 var elem_button = document.getElementById("reset_button");
 elem_button.innerHTML = "RESET";
 var reset = true;
 second = 0;
 minute = 0;
+document.getElementById('tomatoPic').src='tomato.png';
+//Mode.innerHTML = "off";
+mode = "off";
 
 function leftPad(number, targetLength) 
 {
@@ -16,32 +19,42 @@ function leftPad(number, targetLength)
     return output;
 }
 
-
-
-// document.getElementById("reset_button").addEventListener("resetClick", function(){
-//     //stopTimer();
-//     elem_mode.innerHTML == "Mode: RESET";
-
-//   });
-
-
-elem_mode.innerHTML == "Mode: ON"
-
-function timer(minutes) 
+function timer(study_time, break_time) 
 {
     
     s = leftPad(second, 2);
     m = leftPad(minute, 2);
     elem.innerHTML = m + ":" + s;
 
-    if (elem_mode.innerHTML == "Mode: OFF")
+    if (mode == "study")
     {
-        clearInterval(inst); 
+        document.getElementById('tomatoPic').src='study.png';
     }
 
-    if (minute == 25)
+    if (mode == "break")
     {
-        elem_mode.innerHTML = "Mode: OFF";
+        document.getElementById('tomatoPic').src='break.png';
+    }
+
+    if (mode == "off")
+    {
+        //elem_mode.innerHTML = "Mode: OFF";
+        mode = "study";
+    }
+
+    if (mode == "study" && minute == study_time)
+    {
+        mode = "break";
+        minute = 0;
+        second = 0;
+
+    }
+
+    if (mode == "break" && minute == break_time)
+    {
+        mode = "study";
+        minute = 0;
+        second = 0;
     }
     
     second++;
@@ -52,10 +65,10 @@ function timer(minutes)
         minute ++;   
     }
 
-    if (minute >= minutes)
-    {
-        clearInterval(inst); // uncomment this if you want to stop refreshing after one cycle
-    }
+    // if (minute >= minutes)
+    // {
+    //     clearInterval(inst); // uncomment this if you want to stop refreshing after one cycle
+    // }
 
 
 
@@ -63,16 +76,19 @@ function timer(minutes)
 
 function resetClick()
 {
-    elem_button.innerHTML = "Mode: RESET";
+    //elem_button.innerHTML = "Mode: RESET";
+    mode = "reset";
+    //Mode.innerHTML == "reset";
     second = 0;
     minute = 0;
     s = leftPad(second, 2);
     m = leftPad(minute, 2);
     elem.innerHTML = m + ":" + s;
+    document.getElementById('tomatoPic').src='tomato.png';
 }
 
 function startTimer() {
-    timer_funct = setInterval("timer(25)", 1000);
+    timer_funct = setInterval("timer(1, 1)", 1000);
   }
 
 function stopTimer() {
@@ -85,12 +101,15 @@ function stopTimer() {
         checkbox.addEventListener('change', function () {
           if (checkbox.checked) {
             // do this
-            elem_mode.innerHTML = "Mode: Study";
+            //elem_mode.innerHTML = "Mode: Study";
+            
             
             startTimer();
           } else {
             // do that
-            elem_mode.innerHTML = "Mode: OFF";
+            //elem_mode.innerHTML = "Mode: OFF";
+            mode = "off";
+            //Mode.innerHTML == "off";
             stopTimer();
           }
         });
